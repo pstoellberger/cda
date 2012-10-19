@@ -9,20 +9,18 @@ import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import javax.swing.table.TableModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.pentaho.platform.engine.core.system.PentahoSystem;
 
+import pt.webdetails.cda.CdaEnvironment;
 import pt.webdetails.cda.CdaPropertiesHelper;
 import pt.webdetails.cda.cache.monitor.CacheElementInfo;
 import pt.webdetails.cda.cache.monitor.ExtraCacheInfo;
-import pt.webdetails.cda.cache.IQueryCache;
-import pt.webdetails.cda.cache.TableCacheKey;
-import pt.webdetails.cda.deprecated.CdaContentGenerator;
 
 import com.hazelcast.core.EntryEvent;
 import com.hazelcast.core.EntryListener;
@@ -33,8 +31,6 @@ import com.hazelcast.core.LifecycleService;
 import com.hazelcast.core.MapEntry;
 import com.hazelcast.impl.base.DataRecordEntry;
 import com.hazelcast.query.SqlPredicate;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * 
@@ -48,7 +44,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
   public static final String MAP_NAME = "cdaCache";
   public static final String AUX_MAP_NAME = "cdaCacheStats";
   
-  private static final String PLUGIN_PATH = "system/" + CdaContentGenerator.PLUGIN_NAME + "/";
   private static final String CACHE_CFG_FILE_HAZELCAST = "hazelcast.xml";
 
   private static final String GROUP_NAME = "cdc";
@@ -102,7 +97,7 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
   }
   
   public HazelcastQueryCache(){
-    this(PentahoSystem.getApplicationContext().getSolutionPath(PLUGIN_PATH + CACHE_CFG_FILE_HAZELCAST),true);
+    this(CdaEnvironment.getCdaConfigFile(CACHE_CFG_FILE_HAZELCAST),true);
   }
   
   private HazelcastQueryCache(String cfgFile, boolean superClient){
@@ -181,7 +176,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
       active = false;
       new Thread(new Runnable(){
 
-        @Override
         public void run() {
           try {
             Thread.sleep(cacheDisablePeriod * 1000);
@@ -197,7 +191,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
     }
   }
   
-  @Override
   public TableModel getTableModel(TableCacheKey key) {
     try
     {
@@ -263,20 +256,17 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
   }
   
 
-
-  @Override
   public void clearCache() {
     getCache().clear();
     getCacheStats().clear();
   }
 
-  @Override
+
   public boolean remove(TableCacheKey key) {
     return getCache().remove(key) != null;
   }
 
 
-  @Override
   public Iterable<TableCacheKey> getKeys() {
     return getCache().keySet();
   }
@@ -286,7 +276,7 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
     return getCacheStats().keySet(new SqlPredicate("cdaSettingsId = " + cdaSettingsId + " AND dataAccessId = " + dataAccessId));   
   }
   
-  @Override
+
   public ExtraCacheInfo getCacheEntryInfo(TableCacheKey key){
     return  getCacheStats().get(key);
   }
@@ -303,12 +293,12 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
       super(classLoader); 
     }
     
-    @Override
+
     public void entryAdded(EntryEvent<TableCacheKey, TableModel> event) {}//ignore
-    @Override
+
     public void entryUpdated(EntryEvent<TableCacheKey, TableModel> event) {}//ignore
     
-    @Override
+
     public void entryRemoved(final EntryEvent<TableCacheKey, TableModel> event) 
     {
 
@@ -324,7 +314,7 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
 
     }
 
-    @Override
+
     public void entryEvicted(final EntryEvent<TableCacheKey, TableModel> event) {
 
       runInClassLoader(new Runnable(){
@@ -354,7 +344,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
         super(classLoader);
     }
     
-    @Override
     public void entryAdded(final EntryEvent<TableCacheKey, TableModel> event) {
       runInClassLoader(new Runnable() {
 
@@ -365,7 +354,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
 
     }
 
-    @Override
     public void entryRemoved(final EntryEvent<TableCacheKey, TableModel> event) {
       runInClassLoader(new Runnable() {
         public void run() {
@@ -374,7 +362,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
       });
     }
 
-    @Override
     public void entryUpdated(final EntryEvent<TableCacheKey, TableModel> event) {
       runInClassLoader(new Runnable() {
         public void run() {
@@ -383,7 +370,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
       });
     }
 
-    @Override
     public void entryEvicted(final EntryEvent<TableCacheKey, TableModel> event) {
       runInClassLoader(new Runnable() {
         public void run() {
@@ -394,7 +380,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
     
   }
 
-  @Override
   public int removeAll(final String cdaSettingsId, final String dataAccessId) {
     if(cdaSettingsId == null){
       int size = getCache().size();
@@ -421,7 +406,6 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
     }
   }
 
-  @Override
   public CacheElementInfo getElementInfo(TableCacheKey key) {
     ExtraCacheInfo info = getCacheStats().get(key);
     MapEntry<TableCacheKey,TableModel> entry = getCache().getMapEntry(key);
