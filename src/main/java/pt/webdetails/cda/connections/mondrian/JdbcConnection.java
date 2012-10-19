@@ -7,11 +7,9 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Element;
-import org.pentaho.platform.api.engine.IConnectionUserRoleMapper;
-import org.pentaho.platform.engine.core.system.PentahoSessionHolder;
-import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.DataSourceProvider;
 import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.DriverDataSourceProvider;
+
 import pt.webdetails.cda.connections.InvalidConnectionException;
 import pt.webdetails.cda.dataaccess.PropertyDescriptor;
 
@@ -58,7 +56,6 @@ public class JdbcConnection extends AbstractMondrianConnection
   }
 
 
-  @Override
   public DataSourceProvider getInitializedDataSourceProvider() throws InvalidConnectionException
   {
 

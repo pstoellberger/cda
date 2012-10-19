@@ -9,15 +9,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.apache.commons.io.output.NullOutputStream;
-import org.hibernate.Session;
 
+import org.apache.commons.io.output.NullOutputStream;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import pt.webdetails.cda.CdaEngine;
-import pt.webdetails.cda.PluginHibernateException;
-import pt.webdetails.cda.deprecated.PluginHibernateUtil;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
@@ -252,15 +250,15 @@ public abstract class Query implements Serializable
 
   public abstract long getTimeElapsed();
 
-
-  public void save() throws PluginHibernateException
-  {
-    if (getId() == 0)
-    {
-      Session s = PluginHibernateUtil.getSession();
-      s.save(this);
-    }
-  }
+// REVIEW : i dont think this is ever used (Paul)
+//  public void save() throws PluginHibernateException
+//  {
+//    if (getId() == 0)
+//    {
+//      Session s = PluginHibernateUtil.getSession();
+//      s.save(this);
+//    }
+//  }
 
 
   protected static String getJsonString(JSONObject json, String expr)

@@ -170,7 +170,7 @@ public class HtmlExporter extends AbstractExporter
   }
 
   
-  @Override
+
   public String getAttachmentName() 
   {
     // No attachment required

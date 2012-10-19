@@ -11,20 +11,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import javax.swing.table.TableModel;
 
+import javax.swing.table.TableModel;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Element;
 
+import pt.webdetails.cda.CdaEnvironment;
 import pt.webdetails.cda.cache.EHCacheQueryCache;
 import pt.webdetails.cda.cache.IQueryCache;
 import pt.webdetails.cda.connections.Connection;
 import pt.webdetails.cda.connections.ConnectionCatalog;
 import pt.webdetails.cda.connections.ConnectionCatalog.ConnectionType;
-import pt.webdetails.cda.deprecated.PluginUtils;
 import pt.webdetails.cda.discovery.DiscoveryOptions;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
@@ -214,12 +214,12 @@ public abstract class AbstractDataAccess implements DataAccess
   public static synchronized IQueryCache getCdaCache(){
     if(cache == null){
       try {
-        cache = PluginUtils.getPluginBean("cda.", IQueryCache.class);
+    	cache = CdaEnvironment.getQueryCache();
       } catch (Exception e) {
         logger.error(e.getMessage());
       }
       if(cache == null){
-        //fallback
+        //fallback, we should cover this in the environment though
         cache = new EHCacheQueryCache(); 
       }
     }

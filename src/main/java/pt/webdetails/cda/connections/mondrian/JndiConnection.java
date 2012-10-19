@@ -1,13 +1,13 @@
 package pt.webdetails.cda.connections.mondrian;
 
 import java.util.ArrayList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Element;
 import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.DataSourceProvider;
-import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.JndiDataSourceProvider;
-import org.pentaho.reporting.platform.plugin.connection.PentahoMondrianDataSourceProvider;
-import pt.webdetails.cda.CdaEngine;
+
+import pt.webdetails.cda.CdaEnvironment;
 import pt.webdetails.cda.connections.Connection;
 import pt.webdetails.cda.connections.EvaluableConnection;
 import pt.webdetails.cda.connections.InvalidConnectionException;
@@ -64,14 +64,7 @@ public class JndiConnection extends AbstractMondrianConnection implements Evalua
   public DataSourceProvider getInitializedDataSourceProvider() throws InvalidConnectionException
   {
     logger.debug("Creating new jndi connection");
-    if (CdaEngine.getInstance().isStandalone())
-    {
-      return new JndiDataSourceProvider(connectionInfo.getJndi());
-    }
-    else
-    {
-      return new PentahoMondrianDataSourceProvider(connectionInfo.getJndi());
-    }
+    return CdaEnvironment.getMondrianJndiDatasourceProvider(connectionInfo);
   }
 
 
@@ -121,7 +114,6 @@ public class JndiConnection extends AbstractMondrianConnection implements Evalua
   }
 
 
-  @Override
   public Connection evaluate() {
       JndiConnection evaluated = this;
       try {
