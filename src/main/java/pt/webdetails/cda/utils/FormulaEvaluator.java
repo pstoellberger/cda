@@ -3,12 +3,10 @@ package pt.webdetails.cda.utils;
 import java.util.ArrayList;
 
 import org.apache.commons.lang.StringUtils;
-import org.pentaho.platform.api.engine.IPentahoSession;
-import org.pentaho.platform.engine.core.system.PentahoSessionHolder;
 import org.pentaho.reporting.libraries.formula.Formula;
 import org.pentaho.reporting.libraries.formula.FormulaContext;
 
-import pt.webdetails.cda.CdaSessionFormulaContext;
+import pt.webdetails.cda.CdaEnvironment;
 import pt.webdetails.cda.dataaccess.InvalidParameterException;
 
 public class FormulaEvaluator {
@@ -21,8 +19,7 @@ public class FormulaEvaluator {
     
     if(!StringUtils.contains(text, FORMULA_BEGIN)) return text;
     try{
-      IPentahoSession session = PentahoSessionHolder.getSession();
-      return replaceFormula(text, new CdaSessionFormulaContext(session));
+      return replaceFormula(text, CdaEnvironment.getFormulaContext());
     }
     catch(Exception e){//TODO: change
       throw new RuntimeException(e);
@@ -64,8 +61,12 @@ public class FormulaEvaluator {
     try {
       Formula formula = new Formula(localValue);
       // set context if available
-      if (formulaContext != null) formula.initialize(formulaContext);
-      else formula.initialize(new CdaSessionFormulaContext(PentahoSessionHolder.getSession()));
+      if (formulaContext != null) {
+    	  formula.initialize(formulaContext);
+      } else {
+    	  FormulaContext fctx = CdaEnvironment.getFormulaContext();
+    	  formula.initialize(fctx);
+      }
       // evaluate
       Object result = formula.evaluate();
       if(result instanceof ArrayList)

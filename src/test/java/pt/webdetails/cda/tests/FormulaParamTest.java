@@ -13,10 +13,10 @@ import org.pentaho.platform.engine.core.system.StandaloneSession;
 
 import pt.webdetails.cda.CdaBoot;
 import pt.webdetails.cda.CdaEngine;
-import pt.webdetails.cda.CdaSessionFormulaContext;
 import pt.webdetails.cda.connections.UnsupportedConnectionException;
 import pt.webdetails.cda.dataaccess.QueryException;
 import pt.webdetails.cda.dataaccess.UnsupportedDataAccessException;
+import pt.webdetails.cda.deprecated.CdaSessionFormulaContext;
 import pt.webdetails.cda.exporter.ExporterException;
 import pt.webdetails.cda.exporter.UnsupportedExporterException;
 import pt.webdetails.cda.exporter.ExporterEngine.OutputType;

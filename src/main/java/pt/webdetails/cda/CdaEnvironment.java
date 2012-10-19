@@ -15,6 +15,8 @@ import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.Defa
 import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.JndiDataSourceProvider;
 import org.pentaho.reporting.engine.classic.extensions.datasources.pmd.PmdConnectionProvider;
 import org.pentaho.reporting.libraries.base.config.Configuration;
+import org.pentaho.reporting.libraries.formula.DefaultFormulaContext;
+import org.pentaho.reporting.libraries.formula.FormulaContext;
 
 import pt.webdetails.cda.cache.EHCacheQueryCache;
 import pt.webdetails.cda.cache.IQueryCache;
@@ -23,6 +25,7 @@ import pt.webdetails.cda.connections.mondrian.MondrianConnectionInfo;
 import pt.webdetails.cda.connections.mondrian.MondrianJndiConnectionInfo;
 import pt.webdetails.cda.connections.sql.SqlJndiConnectionInfo;
 import pt.webdetails.cda.deprecated.CdaContentGenerator;
+import pt.webdetails.cda.deprecated.CdaSessionFormulaContext;
 
 public class CdaEnvironment {
 
@@ -166,6 +169,13 @@ public class CdaEnvironment {
 //		private static final String PLUGIN_PATH = "system/" + CdaContentGenerator.PLUGIN_NAME + "/";
 //		PentahoSystem.getApplicationContext().getSolutionPath(PLUGIN_PATH + cacheConfigFile);
 		
+		
+	}
+
+	public static FormulaContext getFormulaContext() {
+		return new DefaultFormulaContext();
+//		
+//		return new CdaSessionFormulaContext(PentahoSessionHolder.getSession())
 		
 	}
 
