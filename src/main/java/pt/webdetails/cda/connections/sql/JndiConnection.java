@@ -6,9 +6,8 @@ import java.util.ArrayList;
 
 import org.dom4j.Element;
 import org.pentaho.reporting.engine.classic.core.modules.misc.datafactory.sql.ConnectionProvider;
-import org.pentaho.reporting.engine.classic.core.modules.misc.datafactory.sql.JndiConnectionProvider;
-import org.pentaho.reporting.platform.plugin.connection.PentahoJndiDatasourceConnectionProvider;
-import pt.webdetails.cda.CdaEngine;
+
+import pt.webdetails.cda.CdaEnvironment;
 import pt.webdetails.cda.connections.EvaluableConnection;
 import pt.webdetails.cda.connections.InvalidConnectionException;
 import pt.webdetails.cda.dataaccess.PropertyDescriptor;
@@ -51,21 +50,8 @@ public class JndiConnection extends AbstractSqlConnection implements EvaluableCo
 
   public ConnectionProvider getInitializedConnectionProvider() throws InvalidConnectionException {
     final ConnectionProvider connectionProvider;
-    if (CdaEngine.getInstance().isStandalone()) {
-      final JndiConnectionProvider provider = new JndiConnectionProvider();
-      provider.setConnectionPath(connectionInfo.getJndi());
-      provider.setUsername(connectionInfo.getUser());
-      provider.setPassword(connectionInfo.getPass());
-      connectionProvider = provider;
-    } else {
-      final PentahoJndiDatasourceConnectionProvider provider = new PentahoJndiDatasourceConnectionProvider();
-      provider.setJndiName(connectionInfo.getJndi());
-      provider.setUsername(connectionInfo.getUser());
-      provider.setPassword(connectionInfo.getPass());
-      connectionProvider = provider;
-    }
-
-
+    ConnectionProvider jndiConnectionProvider = CdaEnvironment.getJndiConnectionProvider(connectionInfo);
+    connectionProvider = jndiConnectionProvider;
     try {
       final Connection connection = connectionProvider.createConnection(null, null);
       connection.close();
@@ -123,7 +109,7 @@ public class JndiConnection extends AbstractSqlConnection implements EvaluableCo
     return connectionInfo.getUserField();
   }
 
-  @Override
+
   public pt.webdetails.cda.connections.Connection evaluate() {    
     SqlJndiConnectionInfo info = new SqlJndiConnectionInfo( FormulaEvaluator.replaceFormula( connectionInfo.getJndi()), 
                                                       connectionInfo.getUser(), 

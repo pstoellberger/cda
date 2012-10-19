@@ -1,11 +1,11 @@
 package pt.webdetails.cda.connections.kettle;
 
 import java.util.ArrayList;
+
 import org.dom4j.Element;
-import org.pentaho.reporting.engine.classic.extensions.datasources.kettle.KettleTransFromFileProducer;
 import org.pentaho.reporting.engine.classic.extensions.datasources.kettle.KettleTransformationProducer;
-import org.pentaho.reporting.platform.plugin.connection.PentahoKettleTransFromFileProducer;
-import pt.webdetails.cda.CdaEngine;
+
+import pt.webdetails.cda.CdaEnvironment;
 import pt.webdetails.cda.connections.AbstractConnection;
 import pt.webdetails.cda.connections.ConnectionCatalog;
 import pt.webdetails.cda.connections.InvalidConnectionException;
@@ -43,17 +43,8 @@ public class TransFromFileConnection extends AbstractConnection implements Kettl
    */
   public KettleTransformationProducer createTransformationProducer(final String query)
   {
-    if (CdaEngine.getInstance().isStandalone())
-    {
-      return new KettleTransFromFileProducer("",
-              connectionInfo.getTransformationFile(),
-              query, null, null, connectionInfo.getDefinedArgumentNames(),
-              connectionInfo.getDefinedVariableNames());
-    }
-    return new PentahoKettleTransFromFileProducer("",
-            connectionInfo.getTransformationFile(),
-            query, null, null, connectionInfo.getDefinedArgumentNames(),
-            connectionInfo.getDefinedVariableNames());
+	return CdaEnvironment.getKettleTransformationProducer(connectionInfo, query);
+
   }
 
 

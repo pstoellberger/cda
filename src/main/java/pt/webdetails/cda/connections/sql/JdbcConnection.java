@@ -48,7 +48,7 @@ public class JdbcConnection extends AbstractSqlConnection {
     return TYPE;
   }
 
-  @Override
+
   public ConnectionProvider getInitializedConnectionProvider() throws InvalidConnectionException {
 
 

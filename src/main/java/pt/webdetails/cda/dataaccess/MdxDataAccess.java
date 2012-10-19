@@ -7,24 +7,21 @@ package pt.webdetails.cda.dataaccess;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.swing.table.TableModel;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Element;
-import org.pentaho.platform.api.engine.ObjectFactoryException;
-import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.reporting.engine.classic.core.DataFactory;
 import org.pentaho.reporting.engine.classic.core.ParameterDataRow;
 import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.AbstractNamedMDXDataFactory;
 import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.BandedMDXDataFactory;
-import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.DefaultCubeFileProvider;
-import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.MondrianConnectionProvider;
-import org.pentaho.reporting.platform.plugin.connection.PentahoCubeFileProvider;
-import org.pentaho.reporting.platform.plugin.connection.PentahoMondrianConnectionProvider;
+import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.CubeFileProvider;
+
 import pt.webdetails.cda.CdaBoot;
-import pt.webdetails.cda.CdaEngine;
+import pt.webdetails.cda.CdaEnvironment;
 import pt.webdetails.cda.connections.ConnectionCatalog.ConnectionType;
 import pt.webdetails.cda.connections.InvalidConnectionException;
 import pt.webdetails.cda.connections.mondrian.AbstractMondrianConnection;
@@ -146,22 +143,8 @@ public class MdxDataAccess extends PREDataAccess
     mdxDataFactory.setJdbcPasswordField(mondrianConnectionInfo.getPasswordField());
     mdxDataFactory.setJdbcUserField(mondrianConnectionInfo.getUserField());
 
-    if (CdaEngine.getInstance().isStandalone())
-    {
-      mdxDataFactory.setCubeFileProvider(new DefaultCubeFileProvider(mondrianConnectionInfo.getCatalog()));
-    }
-    else
-    {
-      mdxDataFactory.setCubeFileProvider(new PentahoCubeFileProvider(mondrianConnectionInfo.getCatalog()));
-      try
-      {
-        mdxDataFactory.setMondrianConnectionProvider((MondrianConnectionProvider) PentahoSystem.getObjectFactory().get(PentahoMondrianConnectionProvider.class, "MondrianConnectionProvider", null));
-      }
-      catch (ObjectFactoryException e)
-      {//couldn't get object
-        mdxDataFactory.setMondrianConnectionProvider(new PentahoMondrianConnectionProvider());
-      }
-    }
+    CubeFileProvider cfp = CdaEnvironment.getCubeFileProvider(mdxDataFactory, mondrianConnectionInfo);
+    mdxDataFactory.setCubeFileProvider(cfp);
 
     // using deprecated method for 3.10 support
     mdxDataFactory.setQuery("query", getQuery());
