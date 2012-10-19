@@ -1,24 +1,11 @@
 package pt.webdetails.cda.tests;
 
 import java.io.File;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.List;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-
-import jxl.read.biff.SetupRecord;
 
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.ElementNameAndAttributeQualifier;
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.custommonkey.xmlunit.examples.RecursiveElementNameAndTextQualifier;
 import org.dom4j.Document;
 
 import pt.webdetails.cda.settings.CdaSettings;

@@ -411,7 +411,6 @@ public class JoinCompoundDataAccess extends CompoundDataAccess implements RowPro
 	  return rightKeys;
   }
 
-  @Override
   public void setQuery(String query) {
 	  // Do nothing
   }

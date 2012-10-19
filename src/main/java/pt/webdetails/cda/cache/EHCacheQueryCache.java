@@ -18,10 +18,10 @@ import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.reporting.libraries.base.util.StringUtils;
 
 import pt.webdetails.cda.CdaBoot;
-import pt.webdetails.cda.CdaContentGenerator;
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.cache.monitor.CacheElementInfo;
 import pt.webdetails.cda.cache.monitor.ExtraCacheInfo;
+import pt.webdetails.cda.deprecated.CdaContentGenerator;
 
 
 import mondrian.olap.InvalidArgumentException;
@@ -170,7 +170,6 @@ public class EHCacheQueryCache implements IQueryCache {
             cache.getDiskStoreSize() + " in disk");
   }
 
-  @Override
   public TableModel getTableModel(TableCacheKey key) {
     ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
     try{
@@ -202,7 +201,7 @@ public class EHCacheQueryCache implements IQueryCache {
     }
   }
 
-  @Override
+
   public void clearCache() {
     cache.removeAll();
   }
@@ -211,18 +210,15 @@ public class EHCacheQueryCache implements IQueryCache {
     return this.cache;
   }
 
-  @Override
   public boolean remove(TableCacheKey key) {
     return cache.remove(key);
   }
 
   @SuppressWarnings("unchecked")
-  @Override
   public Iterable<TableCacheKey> getKeys() {
     return cache.getKeys();
   }
 
-  @Override
   public ExtraCacheInfo getCacheEntryInfo(TableCacheKey key) 
   {
     Element element = cache.getQuiet(key);
@@ -242,7 +238,6 @@ public class EHCacheQueryCache implements IQueryCache {
     }
   }
 
-  @Override
   public CacheElementInfo getElementInfo(TableCacheKey key) {
     
     Element element = cache.getQuiet(key);
@@ -261,7 +256,6 @@ public class EHCacheQueryCache implements IQueryCache {
     return info;
   }
 
-  @Override
   public int removeAll(String cdaSettingsId, String dataAccessId) {
     int deleteCount = 0;
     
@@ -285,7 +279,6 @@ public class EHCacheQueryCache implements IQueryCache {
 
 
 
-  @Override
   public void shutdownIfRunning() {
     if(cacheManager!= null){
       if(cache!=null){

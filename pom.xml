@@ -14,6 +14,13 @@
 		<lib.version>1.2.5</lib.version>
 		<libbase.version>1.2.4</libbase.version>
 		<pentaho.connections>2.2.3</pentaho.connections>
+		<mondrian.version>TRUNK-SNAPSHOT</mondrian.version>
+		<kettle.version>4.3.0-stable</kettle.version>
+		<olap4j.version>1.0.1-SNAPSHOT</olap4j.version>
+		<hazelcast.version>2.0.2</hazelcast.version>
+		<ehcache.version>1.6.2</ehcache.version>
+		<pentaho.metadata.version>3.4.3</pentaho.metadata.version>
+
 	</properties>
 
 	<repositories>
@@ -66,24 +73,80 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
 		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+		<!-- mondrian + olap4j + kettle + metadata -->
+		<dependency>
+			<groupId>pentaho</groupId>
+			<artifactId>mondrian</artifactId>
+			<version>${mondrian.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jsp-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.olap4j</groupId>
+			<artifactId>olap4j</artifactId>
+			<version>${olap4j.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm-commons</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>retroweaver</groupId>
+					<artifactId>retroweaver</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>retroweaver</groupId>
+					<artifactId>retroweaver-rt</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>pentaho-kettle</groupId>
+			<artifactId>kettle-engine</artifactId>
+			<version>${kettle.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>pentaho-kettle</groupId>
+			<artifactId>kettle-core</artifactId>
+			<version>${kettle.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>pentaho</groupId>
+			<artifactId>pentaho-metadata</artifactId>
+			<version>${pentaho.metadata.version}</version>
 		</dependency>
 		<!-- LIB stuff for reporting -->
 		<dependency>
@@ -174,10 +237,57 @@
 		</dependency>
 		<dependency>
 			<groupId>pentaho-reporting-engine</groupId>
+			<artifactId>pentaho-reporting-engine-classic-extensions-xpath</artifactId>
+			<version>${pentaho.reporting.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>pentaho-reporting-engine</groupId>
+			<artifactId>pentaho-reporting-engine-classic-extensions-scripting</artifactId>
+			<version>${pentaho.reporting.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>pentaho-reporting-engine</groupId>
 			<artifactId>pentaho-reporting-engine-classic-extensions-drill-down</artifactId>
 			<version>${pentaho.reporting.version}</version>
 		</dependency>
-
+		<!-- cda stuff -->
+		<!-- dont think we need that 
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.3</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+		-->
+		<dependency>
+      		<groupId>org.json</groupId>
+      		<artifactId>json</artifactId>
+      		<version>20090211</version>
+    	</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast</artifactId>
+			<version>${hazelcast.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>${ehcache.version}</version>
+		</dependency>
+		<dependency>
+    		<groupId>pentaho-kettle</groupId>
+    		<artifactId>robochef</artifactId>
+    		<version>0.9.6</version>
+    		<systemPath>${project.basedir}/dev-lib/robochef-0.9.6.jar</systemPath>
+    		<scope>system</scope>
+		</dependency>
+            
+		<!--  test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

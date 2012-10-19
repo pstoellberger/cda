@@ -24,6 +24,7 @@ import pt.webdetails.cda.cache.IQueryCache;
 import pt.webdetails.cda.connections.Connection;
 import pt.webdetails.cda.connections.ConnectionCatalog;
 import pt.webdetails.cda.connections.ConnectionCatalog.ConnectionType;
+import pt.webdetails.cda.deprecated.PluginUtils;
 import pt.webdetails.cda.discovery.DiscoveryOptions;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
@@ -31,7 +32,6 @@ import pt.webdetails.cda.settings.UnknownDataAccessException;
 import pt.webdetails.cda.utils.InvalidOutputIndexException;
 import pt.webdetails.cda.utils.TableModelUtils;
 import pt.webdetails.cda.utils.Util;
-import pt.webdetails.cda.utils.framework.PluginUtils;
 import pt.webdetails.cda.utils.kettle.SortException;
 
 /**
@@ -700,7 +700,6 @@ public abstract class AbstractDataAccess implements DataAccess
     }
 
 
-    @Override
     public Iterator<String> iterator()
     {
       return new StringColumnIterator();
@@ -712,14 +711,12 @@ public abstract class AbstractDataAccess implements DataAccess
       int rowIndex = 0;
 
 
-      @Override
       public boolean hasNext()
       {
         return table.getRowCount() > rowIndex;
       }
 
 
-      @Override
       public String next()
       {
         if (!hasNext())
@@ -730,7 +727,6 @@ public abstract class AbstractDataAccess implements DataAccess
       }
 
 
-      @Override
       public void remove()
       {
         throw new UnsupportedOperationException();
