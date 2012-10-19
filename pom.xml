@@ -4,7 +4,7 @@
 	<groupId>pt.webdetails</groupId>
 	<artifactId>cda-core</artifactId>
 	<packaging>jar</packaging>
-	<name>CDA core</name>
+	<name>CDA Core</name>
 	<version>TRUNK-SNAPSHOT</version>
 	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>
