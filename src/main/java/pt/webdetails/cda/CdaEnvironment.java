@@ -1,5 +1,7 @@
 package pt.webdetails.cda;
 
+import java.net.URL;
+
 import org.pentaho.reporting.engine.classic.core.DefaultReportEnvironment;
 import org.pentaho.reporting.engine.classic.core.ReportEnvironmentDataRow;
 import org.pentaho.reporting.engine.classic.core.modules.misc.datafactory.sql.ConnectionProvider;
@@ -20,6 +22,7 @@ import pt.webdetails.cda.connections.kettle.TransFromFileConnectionInfo;
 import pt.webdetails.cda.connections.mondrian.MondrianConnectionInfo;
 import pt.webdetails.cda.connections.mondrian.MondrianJndiConnectionInfo;
 import pt.webdetails.cda.connections.sql.SqlJndiConnectionInfo;
+import pt.webdetails.cda.deprecated.CdaContentGenerator;
 
 public class CdaEnvironment {
 
@@ -150,6 +153,19 @@ public class CdaEnvironment {
 //				  return buff.toString();
 //			  }
 
+		
+	}
+
+	
+	public static String getCdaConfigFile(String fileName) {
+		
+		URL cfgFile = CdaBoot.class.getResource(fileName);
+		return  cfgFile.toExternalForm();
+		
+//		PENTAHO
+//		private static final String PLUGIN_PATH = "system/" + CdaContentGenerator.PLUGIN_NAME + "/";
+//		PentahoSystem.getApplicationContext().getSolutionPath(PLUGIN_PATH + cacheConfigFile);
+		
 		
 	}
 

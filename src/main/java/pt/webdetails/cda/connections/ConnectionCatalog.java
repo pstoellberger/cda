@@ -28,7 +28,7 @@ public class ConnectionCatalog {
   };
   private static ConnectionCatalog _instance;
   private static Log logger = LogFactory.getLog(ConnectionCatalog.class);
-  public static final String PLUGIN_DIR = PentahoSystem.getApplicationContext().getSolutionPath("system/" + CdaContentGenerator.PLUGIN_NAME);
+
   private HashMap<String, ConnectionInfo> connectionPool;
 
   public ConnectionCatalog() {
