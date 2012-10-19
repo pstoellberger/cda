@@ -17,11 +17,9 @@ import org.pentaho.reporting.libraries.base.config.Configuration;
 import pt.webdetails.cda.cache.EHCacheQueryCache;
 import pt.webdetails.cda.cache.IQueryCache;
 import pt.webdetails.cda.connections.kettle.TransFromFileConnectionInfo;
-import pt.webdetails.cda.connections.mondrian.IConnectionUserRoleMapper;
 import pt.webdetails.cda.connections.mondrian.MondrianConnectionInfo;
 import pt.webdetails.cda.connections.mondrian.MondrianJndiConnectionInfo;
 import pt.webdetails.cda.connections.sql.SqlJndiConnectionInfo;
-import pt.webdetails.cda.deprecated.PluginUtils;
 
 public class CdaEnvironment {
 
@@ -151,7 +149,7 @@ public class CdaEnvironment {
 //				  logger.debug("Assembled role: " + buff.toString() + " for catalog: " + catalog);
 //				  return buff.toString();
 //			  }
-		  }
+
 		
 	}
 
