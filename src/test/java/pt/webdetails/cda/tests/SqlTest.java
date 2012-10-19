@@ -5,9 +5,9 @@ import java.io.OutputStream;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dom4j.DocumentException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import pt.webdetails.cda.CdaBoot;
 import pt.webdetails.cda.CdaEngine;
@@ -32,7 +32,7 @@ import pt.webdetails.cda.settings.UnknownDataAccessException;
 public class SqlTest extends TestCase
 {
 
-  private static final Logger logger = LoggerFactory.getLogger(SqlTest.class);
+	private static final Log logger = LogFactory.getLog(SqlTest.class);
 
   public SqlTest()
   {

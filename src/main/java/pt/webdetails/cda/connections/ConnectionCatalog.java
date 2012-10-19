@@ -13,8 +13,8 @@ import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.pentaho.platform.util.xml.dom4j.XmlDom4JHelper;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
-import pt.webdetails.cda.CdaContentGenerator;
 import pt.webdetails.cda.connections.ConnectionCatalog.ConnectionType;
+import pt.webdetails.cda.deprecated.CdaContentGenerator;
 
 /**
  *

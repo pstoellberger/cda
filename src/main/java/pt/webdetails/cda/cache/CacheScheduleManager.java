@@ -19,7 +19,6 @@ import org.hibernate.Session;
 import org.pentaho.platform.api.engine.IParameterProvider;
 import org.pentaho.platform.api.engine.IPluginResourceLoader;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
-import pt.webdetails.cda.CdaContentGenerator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +30,8 @@ import org.pentaho.reporting.libraries.base.config.Configuration;
 import org.quartz.CronExpression;
 import pt.webdetails.cda.CdaBoot;
 import pt.webdetails.cda.PluginHibernateException;
-import pt.webdetails.cda.utils.PluginHibernateUtil;
+import pt.webdetails.cda.deprecated.CdaContentGenerator;
+import pt.webdetails.cda.deprecated.PluginHibernateUtil;
 import pt.webdetails.cda.utils.Util;
 
 /**

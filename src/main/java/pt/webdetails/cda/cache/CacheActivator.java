@@ -23,7 +23,7 @@ import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 import pt.webdetails.cda.CdaBoot;
-import pt.webdetails.cda.utils.PluginHibernateUtil;
+import pt.webdetails.cda.deprecated.PluginHibernateUtil;
 
 /**
  *

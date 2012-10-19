@@ -72,7 +72,6 @@ public abstract class AbstractConnection implements Connection {
     return this.getClass().toString().toLowerCase().replaceAll("class pt.webdetails.cda.connections.(.*)connection", "$1");
   }
   
-  @Override
   public void accept(DomVisitor v, Element ele) {
 	  v.visit((AbstractConnection)this, ele);		
   }

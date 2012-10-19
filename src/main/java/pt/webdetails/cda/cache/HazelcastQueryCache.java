@@ -17,12 +17,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
 
-import pt.webdetails.cda.CdaContentGenerator;
 import pt.webdetails.cda.CdaPropertiesHelper;
 import pt.webdetails.cda.cache.monitor.CacheElementInfo;
 import pt.webdetails.cda.cache.monitor.ExtraCacheInfo;
 import pt.webdetails.cda.cache.IQueryCache;
 import pt.webdetails.cda.cache.TableCacheKey;
+import pt.webdetails.cda.deprecated.CdaContentGenerator;
 
 import com.hazelcast.core.EntryEvent;
 import com.hazelcast.core.EntryListener;

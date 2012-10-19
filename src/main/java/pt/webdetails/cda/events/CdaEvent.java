@@ -44,7 +44,6 @@ public abstract class CdaEvent extends PluginEvent
     }
 
 
-    @Override
     public JSONObject toJSON() throws JSONException
     {
       JSONObject obj = new JSONObject();

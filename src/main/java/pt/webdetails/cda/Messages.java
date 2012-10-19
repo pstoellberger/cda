@@ -10,12 +10,16 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.pentaho.platform.api.engine.IPentahoSession;
 import org.pentaho.platform.engine.core.system.StandaloneSession;
 import org.pentaho.platform.util.logging.Logger;
 import org.pentaho.platform.util.messages.LocaleHelper;
 import org.pentaho.platform.util.messages.MessageUtil;
 
+import pt.webdetails.cda.deprecated.CdaContentGenerator;
+import pt.webdetails.cda.tests.SqlTest;
 import pt.webdetails.cpf.repository.RepositoryAccess;
 
 /**
@@ -25,7 +29,10 @@ import pt.webdetails.cpf.repository.RepositoryAccess;
  *
  */
 public class Messages {
+	
   private static final Map<Locale,ResourceBundle> locales = Collections.synchronizedMap(new HashMap<Locale,ResourceBundle>());
+  
+  private static final Log logger = LogFactory.getLog(Messages.class);
 
   private static ResourceBundle getBundle() {
     Locale locale = LocaleHelper.getLocale();
@@ -39,7 +46,7 @@ public class Messages {
         bundle = new PropertyResourceBundle(in);
         Messages.locales.put(locale, bundle);
       } catch (Exception e) {
-        Logger.error(Messages.class.getName(), "Could not get localization bundle", e); //$NON-NLS-1$
+        logger.error("Could not get localization bundle", e); //$NON-NLS-1$
       } finally {
         IOUtils.closeQuietly(in);
       }

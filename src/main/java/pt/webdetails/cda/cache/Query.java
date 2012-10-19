@@ -17,10 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.PluginHibernateException;
+import pt.webdetails.cda.deprecated.PluginHibernateUtil;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
-import pt.webdetails.cda.utils.PluginHibernateUtil;
 
 /**
  *

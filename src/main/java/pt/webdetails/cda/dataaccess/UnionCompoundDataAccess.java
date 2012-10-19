@@ -109,7 +109,6 @@ public class UnionCompoundDataAccess extends CompoundDataAccess
 	  return bottomId;
   }
 
-  @Override
   public void setQuery(String query) {
 	  // Do nothing
   }
