@@ -39,6 +39,8 @@ public class ConnectionCatalog {
 
   private void getConnections() {
     connectionPool = new HashMap<String, ConnectionInfo>();
+    
+    logger.debug("Reading connections file!!! ");
     List<URL> files = CdaEngine.getInstance().getEnvironment().getComponentsFiles();
     if (files != null && files.size() > 0) {
       for (URL file : files) {
