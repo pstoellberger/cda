@@ -17,6 +17,12 @@
   <classpathentry kind="var" path="M2_REPO/org/apache/axis2/axis2-adb/1.4.1/axis2-adb-1.4.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/axis2/axis2-kernel/1.4.1/axis2-kernel-1.4.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcmail-jdk14/1.38/bcmail-jdk14-1.38.jar"/>
+  <classpathentry kind="var" path="M2_REPO/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcprov-jdk14/1.38/bcprov-jdk14-1.38.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/bouncycastle/bctsp-jdk14/1.38/bctsp-jdk14-1.38.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.6/commons-beanutils-1.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.5/commons-codec-1.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/3.2/commons-collections-3.2.jar"/>
@@ -49,6 +55,7 @@
   <classpathentry kind="var" path="M2_REPO/com/hazelcast/hazelcast/2.0.2/hazelcast-2.0.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpcore/4.0-beta1/httpcore-4.0-beta1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpcore-nio/4.0-beta1/httpcore-nio-4.0-beta1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/lowagie/itext/2.1.7/itext-2.1.7.jar"/>
   <classpathentry kind="var" path="M2_REPO/net/java/dev/javacc/javacc/5.0/javacc-5.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/javacup/javacup/10k/javacup-10k.jar"/>
   <classpathentry kind="var" path="M2_REPO/javassist/javassist/3.4.GA/javassist-3.4.GA.jar"/>
@@ -57,6 +64,7 @@
   <classpathentry kind="var" path="M2_REPO/org/netbeans/jmi/200507110943/jmi-200507110943.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/netbeans/jmiutils/200507110943/jmiutils-200507110943.jar"/>
   <classpathentry kind="var" path="M2_REPO/joda-time/joda-time/1.6/joda-time-1.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/rhino/js/1.7R2/js-1.7R2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/json/json/20090211/json-20090211.jar"/>
   <classpathentry kind="var" path="M2_REPO/jug-lgpl/jug-lgpl/2.0.0/jug-lgpl-2.0.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.10/junit-4.10.jar" sourcepath="M2_REPO/junit/junit/4.10/junit-4.10-sources.jar">
@@ -75,6 +83,7 @@
   <classpathentry kind="var" path="M2_REPO/pentaho-library/libloader/1.2.5/libloader-1.2.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/pentaho-library/librepository/1.2.5/librepository-1.2.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/pentaho-library/libserializer/1.2.4/libserializer-1.2.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/pentaho-library/libsparkline/1.2.8/libsparkline-1.2.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/pentaho-library/libxml/1.2.4/libxml-1.2.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar" sourcepath="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/netbeans/mdrapi/200507110943/mdrapi-200507110943.jar"/>
@@ -100,6 +109,7 @@
   <classpathentry kind="var" path="M2_REPO/pentaho-reporting-engine/pentaho-reporting-engine-classic-extensions-pmd/3.9.0-GA/pentaho-reporting-engine-classic-extensions-pmd-3.9.0-GA.jar"/>
   <classpathentry kind="var" path="M2_REPO/pentaho-reporting-engine/pentaho-reporting-engine-classic-extensions-scripting/3.9.0-GA/pentaho-reporting-engine-classic-extensions-scripting-3.9.0-GA.jar"/>
   <classpathentry kind="var" path="M2_REPO/pentaho-reporting-engine/pentaho-reporting-engine-classic-extensions-xpath/3.9.0-GA/pentaho-reporting-engine-classic-extensions-xpath-3.9.0-GA.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/poi/poi/3.1-FINAL/poi-3.1-FINAL.jar"/>
   <classpathentry kind="lib" path="dev-lib/robochef-0.9.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/scannotation/scannotation/1.0.2/scannotation-1.0.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/simple-jndi/simple-jndi/0.11.3/simple-jndi-0.11.3.jar"/>
