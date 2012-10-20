@@ -19,7 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Element;
 
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.cache.EHCacheQueryCache;
 import pt.webdetails.cda.cache.IQueryCache;
 import pt.webdetails.cda.connections.Connection;
@@ -214,7 +214,7 @@ public abstract class AbstractDataAccess implements DataAccess
   public static synchronized IQueryCache getCdaCache(){
     if(cache == null){
       try {
-    	cache = CdaEnvironment.getQueryCache();
+    	cache = CdaEngine.getInstance().getEnvironment().getQueryCache();
       } catch (Exception e) {
         logger.error(e.getMessage());
       }

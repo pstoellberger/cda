@@ -25,7 +25,6 @@ import org.pentaho.reporting.libraries.base.util.StringUtils;
 
 import pt.webdetails.cda.CdaBoot;
 import pt.webdetails.cda.CdaEngine;
-import pt.webdetails.cda.CdaEnvironment;
 import pt.webdetails.cda.cache.monitor.CacheElementInfo;
 import pt.webdetails.cda.cache.monitor.ExtraCacheInfo;
 
@@ -81,7 +80,7 @@ public class EHCacheQueryCache implements IQueryCache {
       
         try
         {//preferred way: proper config in plugin folder
-         String cfgFile = CdaEnvironment.getCdaConfigFile(cacheConfigFile);
+         String cfgFile = CdaEngine.getInstance().getEnvironment().getCdaConfigFile(cacheConfigFile);
          cacheManager = new net.sf.ehcache.CacheManager(cfgFile);
          logger.debug("Cache started using " + cfgFile);
         }

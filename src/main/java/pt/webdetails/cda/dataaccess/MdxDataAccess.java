@@ -21,7 +21,7 @@ import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.Band
 import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.CubeFileProvider;
 
 import pt.webdetails.cda.CdaBoot;
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.ConnectionCatalog.ConnectionType;
 import pt.webdetails.cda.connections.InvalidConnectionException;
 import pt.webdetails.cda.connections.mondrian.AbstractMondrianConnection;
@@ -143,7 +143,7 @@ public class MdxDataAccess extends PREDataAccess
     mdxDataFactory.setJdbcPasswordField(mondrianConnectionInfo.getPasswordField());
     mdxDataFactory.setJdbcUserField(mondrianConnectionInfo.getUserField());
 
-    CubeFileProvider cfp = CdaEnvironment.getCubeFileProvider(mdxDataFactory, mondrianConnectionInfo);
+    CubeFileProvider cfp = CdaEngine.getInstance().getEnvironment().getCubeFileProvider(mdxDataFactory, mondrianConnectionInfo);
     mdxDataFactory.setCubeFileProvider(cfp);
 
     // using deprecated method for 3.10 support

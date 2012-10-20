@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.dom4j.Element;
 import org.pentaho.reporting.engine.classic.extensions.datasources.kettle.KettleTransformationProducer;
 
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.AbstractConnection;
 import pt.webdetails.cda.connections.ConnectionCatalog;
 import pt.webdetails.cda.connections.InvalidConnectionException;
@@ -43,7 +43,7 @@ public class TransFromFileConnection extends AbstractConnection implements Kettl
    */
   public KettleTransformationProducer createTransformationProducer(final String query)
   {
-	return CdaEnvironment.getKettleTransformationProducer(connectionInfo, query);
+	return CdaEngine.getInstance().getEnvironment().getKettleTransformationProducer(connectionInfo, query);
 
   }
 

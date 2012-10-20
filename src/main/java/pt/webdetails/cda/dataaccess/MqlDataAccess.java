@@ -7,10 +7,9 @@ package pt.webdetails.cda.dataaccess;
 import org.dom4j.Element;
 import org.pentaho.reporting.engine.classic.core.DataFactory;
 import org.pentaho.reporting.engine.classic.extensions.datasources.pmd.IPmdConnectionProvider;
-import org.pentaho.reporting.engine.classic.extensions.datasources.pmd.PmdConnectionProvider;
 import org.pentaho.reporting.engine.classic.extensions.datasources.pmd.PmdDataFactory;
 
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.ConnectionCatalog.ConnectionType;
 import pt.webdetails.cda.connections.InvalidConnectionException;
 import pt.webdetails.cda.connections.metadata.MetadataConnection;
@@ -50,7 +49,7 @@ public class MqlDataAccess extends PREDataAccess {
     final PmdDataFactory returnDataFactory = new PmdDataFactory();
     returnDataFactory.setXmiFile(connection.getConnectionInfo().getXmiFile());
     returnDataFactory.setDomainId(connection.getConnectionInfo().getDomainId());
-    IPmdConnectionProvider pmdc = CdaEnvironment.getPmdConnectionProvider();
+    IPmdConnectionProvider pmdc = CdaEngine.getInstance().getEnvironment().getPmdConnectionProvider();
     returnDataFactory.setConnectionProvider(pmdc);
     // using deprecated method for 3.10 support
     returnDataFactory.setQuery("query", getQuery());
