@@ -2,6 +2,7 @@ package pt.webdetails.cda.tests;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.net.URL;
 
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
@@ -50,7 +51,7 @@ public class CompoundJoinTest extends TestCase
   }
 
 
-  public void testCompoundQuery() throws ExporterException, UnknownDataAccessException, UnsupportedExporterException, QueryException, UnsupportedConnectionException, DocumentException, UnsupportedDataAccessException
+  public void testCompoundQuery() throws Exception
   {
 
 
@@ -61,7 +62,10 @@ public class CompoundJoinTest extends TestCase
 
     final SettingsManager settingsManager = SettingsManager.getInstance();
 
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-join.cda");
+    
+    URL file = this.getClass().getResource("sample-join.cda");
+    File settingsFile = new File(file.toURI());
+    
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
     logger.debug("Doing query on Cda - Initializing CdaEngine");
     final CdaEngine engine = CdaEngine.getInstance();

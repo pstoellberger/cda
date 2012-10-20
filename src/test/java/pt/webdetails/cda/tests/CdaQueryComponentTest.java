@@ -1,6 +1,7 @@
 package pt.webdetails.cda.tests;
 
 import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,8 +44,9 @@ public class CdaQueryComponentTest extends TestCase
   
   public void testCdaQueryComponent() throws Exception {
     CdaQueryComponent component = new CdaQueryComponent();
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-sql.cda");
-    component.setFile(settingsFile.getAbsolutePath());
+    URL file = this.getClass().getResource("sample-sql.cda");
+    File f = new File(file.toURI());
+    component.setFile(f.getAbsolutePath());
     Map<String, Object> inputs = new HashMap<String, Object>();
     inputs.put("dataAccessId", "1");
     inputs.put("paramorderDate", "2003-04-01");
