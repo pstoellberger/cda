@@ -2,6 +2,7 @@ package pt.webdetails.cda.tests;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.net.URL;
 
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
@@ -50,7 +51,7 @@ public class Olap4jTest extends TestCase
   }
 
 
-  public void testOlap4jQuery() throws ExporterException, UnknownDataAccessException, UnsupportedExporterException, QueryException, UnsupportedConnectionException, DocumentException, UnsupportedDataAccessException
+  public void testOlap4jQuery() throws Exception
   {
 
     OutputStream out = System.out;
@@ -58,9 +59,9 @@ public class Olap4jTest extends TestCase
     logger.info("Building CDA settings from sample file");
 
     final SettingsManager settingsManager = SettingsManager.getInstance();
-
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-olap4j.cda");
-    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
+    URL file = this.getClass().getResource("sample-olap4j.cda");
+    File f = new File(file.toURI());
+    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(f.getAbsolutePath());
     logger.debug("Doing query on Cda - Initializing CdaEngine");
     final CdaEngine engine = CdaEngine.getInstance();
 
