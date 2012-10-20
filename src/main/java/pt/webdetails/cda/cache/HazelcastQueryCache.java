@@ -17,7 +17,7 @@ import javax.swing.table.TableModel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.CdaPropertiesHelper;
 import pt.webdetails.cda.cache.monitor.CacheElementInfo;
 import pt.webdetails.cda.cache.monitor.ExtraCacheInfo;
@@ -97,7 +97,7 @@ public class HazelcastQueryCache extends ClassLoaderAwareCaller implements IQuer
   }
   
   public HazelcastQueryCache(){
-    this(CdaEnvironment.getCdaConfigFile(CACHE_CFG_FILE_HAZELCAST),true);
+    this(CdaEngine.getInstance().getEnvironment().getCdaConfigFile(CACHE_CFG_FILE_HAZELCAST),true);
   }
   
   private HazelcastQueryCache(String cfgFile, boolean superClient){

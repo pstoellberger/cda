@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Element;
 
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.AbstractConnection;
 import pt.webdetails.cda.connections.ConnectionCatalog.ConnectionType;
 import pt.webdetails.cda.connections.InvalidConnectionException;
@@ -60,7 +60,7 @@ public abstract class AbstractMondrianConnection extends AbstractConnection impl
   {
 	  try
 	  {
-		  CdaEnvironment.computeMondrianRole(catalog);
+		  CdaEngine.getInstance().getEnvironment().computeMondrianRole(catalog);
 	  }
 	  catch (Exception e)
 	  {

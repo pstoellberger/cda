@@ -24,7 +24,7 @@ import org.pentaho.reporting.libraries.base.config.Configuration;
 import org.pentaho.reporting.libraries.resourceloader.ResourceKey;
 import org.pentaho.reporting.libraries.resourceloader.ResourceManager;
 
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.InvalidConnectionException;
 import pt.webdetails.cda.settings.UnknownConnectionException;
 
@@ -132,7 +132,7 @@ public abstract class PREDataAccess extends SimpleDataAccess
       try {
         // fire the query. you always get a tablemodel or an exception.
 
-        final ReportEnvironmentDataRow environmentDataRow = CdaEnvironment.getReportEnvironmentDataRow(configuration);
+        final ReportEnvironmentDataRow environmentDataRow = CdaEngine.getInstance().getEnvironment().getReportEnvironmentDataRow(configuration);
 
         final TableModel tm = dataFactory.queryData("query",
                 new CompoundDataRow(environmentDataRow, parameterDataRow));

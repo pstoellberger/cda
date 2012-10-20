@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.dom4j.Element;
 import org.pentaho.reporting.engine.classic.core.modules.misc.datafactory.sql.ConnectionProvider;
 
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.EvaluableConnection;
 import pt.webdetails.cda.connections.InvalidConnectionException;
 import pt.webdetails.cda.dataaccess.PropertyDescriptor;
@@ -50,7 +50,7 @@ public class JndiConnection extends AbstractSqlConnection implements EvaluableCo
 
   public ConnectionProvider getInitializedConnectionProvider() throws InvalidConnectionException {
     final ConnectionProvider connectionProvider;
-    ConnectionProvider jndiConnectionProvider = CdaEnvironment.getJndiConnectionProvider(connectionInfo);
+    ConnectionProvider jndiConnectionProvider = CdaEngine.getInstance().getEnvironment().getJndiConnectionProvider(connectionInfo);
     connectionProvider = jndiConnectionProvider;
     try {
       final Connection connection = connectionProvider.createConnection(null, null);

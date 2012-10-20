@@ -5,18 +5,14 @@
 package pt.webdetails.cda;
 
 import java.io.OutputStream;
+
 import javax.swing.table.TableModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.pentaho.platform.api.engine.IPentahoSession;
-import org.pentaho.platform.api.repository.ISolutionRepository;
-import org.pentaho.platform.engine.core.system.PentahoSessionHolder;
-import org.pentaho.platform.engine.core.system.PentahoSystem;
-import org.pentaho.platform.engine.services.solution.SolutionReposHelper;
 import org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;
+
 import pt.webdetails.cda.dataaccess.QueryException;
-import pt.webdetails.cda.deprecated.SolutionRepositoryUtils;
 import pt.webdetails.cda.discovery.DiscoveryOptions;
 import pt.webdetails.cda.exporter.ExporterEngine;
 import pt.webdetails.cda.exporter.ExporterException;
@@ -38,11 +34,14 @@ public class CdaEngine
 
   private static final Log logger = LogFactory.getLog(CdaEngine.class);
   private static CdaEngine _instance;
+  
+  private ICdaEnvironment environment;
 
 
-  protected CdaEngine()
+  protected CdaEngine(ICdaEnvironment environment)
   {
     logger.info("Initializing CdaEngine");
+	this.environment = environment;
     init();
 
   }
@@ -98,23 +97,6 @@ public class CdaEngine
 
   }
 
-
-  public void getCdaList(final OutputStream out, final DiscoveryOptions discoveryOptions, final IPentahoSession userSession) throws UnsupportedExporterException, ExporterException
-  {
-
-    final TableModel tableModel = SolutionRepositoryUtils.getInstance().getCdaList(userSession);
-
-    ExporterEngine.getInstance().getExporter(discoveryOptions.getOutputType()).export(out, tableModel);
-
-  }
-
-
-  public static boolean isStandalone()
-  {
-    return "true".equals(CdaBoot.getInstance().getGlobalConfig().getConfigProperty("pt.webdetails.cda.Standalone"));
-  }
-
-
   private void init()
   {
 
@@ -128,18 +110,16 @@ public class CdaEngine
 
   public static synchronized CdaEngine getInstance()
   {
-
     if (_instance == null)
     {
-      _instance = new CdaEngine();
-    }
-
-    //Avoid problems when vfs is not registered yet
-    if (!isStandalone())
-    {
-      SolutionReposHelper.setSolutionRepositoryThreadVariable(PentahoSystem.get(ISolutionRepository.class, PentahoSessionHolder.getSession()));
-
+      ICdaEnvironment env = new DefaultCdaEnvironment();
+      _instance = new CdaEngine(env);
     }
     return _instance;
   }
+  
+  public ICdaEnvironment getEnvironment() {
+	  return environment;
+  }
+  
 }

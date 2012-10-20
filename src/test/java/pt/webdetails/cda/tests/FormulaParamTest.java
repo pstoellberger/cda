@@ -5,28 +5,24 @@ import java.io.OutputStream;
 
 import javax.swing.table.TableModel;
 
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.DocumentException;
-import org.pentaho.platform.api.engine.IPentahoSession;
-import org.pentaho.platform.engine.core.system.StandaloneSession;
 
 import pt.webdetails.cda.CdaBoot;
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.UnsupportedConnectionException;
 import pt.webdetails.cda.dataaccess.QueryException;
 import pt.webdetails.cda.dataaccess.UnsupportedDataAccessException;
-import pt.webdetails.cda.deprecated.CdaSessionFormulaContext;
 import pt.webdetails.cda.exporter.ExporterException;
 import pt.webdetails.cda.exporter.UnsupportedExporterException;
-import pt.webdetails.cda.exporter.ExporterEngine.OutputType;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
 import pt.webdetails.cda.settings.UnknownDataAccessException;
-import junit.framework.Assert;
-import junit.framework.TestCase;
-import org.pentaho.platform.engine.core.system.PentahoSessionHolder;
 
 public class FormulaParamTest extends TestCase {
   private static final Log logger = LogFactory.getLog(SqlTestFormula.class);
@@ -66,11 +62,7 @@ public class FormulaParamTest extends TestCase {
     
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
     //set a session parameter
-    IPentahoSession bogusSession = new StandaloneSession();
     final String testParamValue = "thisIsAGoodValue";
-    bogusSession.setAttribute("test", testParamValue);
-          
-    PentahoSessionHolder.setSession(bogusSession);
     
     logger.debug("Doing query on Cda - Initializing CdaEngine");
     final CdaEngine engine = CdaEngine.getInstance();

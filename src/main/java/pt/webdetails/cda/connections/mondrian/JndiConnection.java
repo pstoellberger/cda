@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.dom4j.Element;
 import org.pentaho.reporting.engine.classic.extensions.datasources.mondrian.DataSourceProvider;
 
-import pt.webdetails.cda.CdaEnvironment;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.Connection;
 import pt.webdetails.cda.connections.EvaluableConnection;
 import pt.webdetails.cda.connections.InvalidConnectionException;
@@ -64,7 +64,7 @@ public class JndiConnection extends AbstractMondrianConnection implements Evalua
   public DataSourceProvider getInitializedDataSourceProvider() throws InvalidConnectionException
   {
     logger.debug("Creating new jndi connection");
-    return CdaEnvironment.getMondrianJndiDatasourceProvider(connectionInfo);
+    return CdaEngine.getInstance().getEnvironment().getMondrianJndiDatasourceProvider(connectionInfo);
   }
 
 

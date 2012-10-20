@@ -1,10 +1,8 @@
 package pt.webdetails.cda.settings;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.lang.UnsupportedOperationException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,28 +10,22 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.collections.map.LRUMap;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.DOMReader;
-import org.pentaho.platform.api.engine.ISolutionFile;
-import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.reporting.libraries.resourceloader.Resource;
 import org.pentaho.reporting.libraries.resourceloader.ResourceException;
 import org.pentaho.reporting.libraries.resourceloader.ResourceKey;
 import org.pentaho.reporting.libraries.resourceloader.ResourceManager;
-import org.pentaho.reporting.platform.plugin.RepositoryResourceLoader;
-import java.text.MessageFormat;
+
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.UnsupportedConnectionException;
 import pt.webdetails.cda.dataaccess.AbstractDataAccess;
 import pt.webdetails.cda.dataaccess.DataAccessConnectionDescriptor;
 import pt.webdetails.cda.dataaccess.UnsupportedDataAccessException;
-import pt.webdetails.cpf.repository.RepositoryAccess;
-import pt.webdetails.cpf.repository.RepositoryAccess.FileAccess;
 
 /**
  * This file is responsible to build / keep the different cda settings.
@@ -49,8 +41,6 @@ public class SettingsManager {
   // TODO: These are defined in 
   // org.pentaho.reporting.platform.plugin.RepositoryResourceLoader
   // we should see if there is a way to have plugins use other plugin classes
-  public static final String SOLUTION_SCHEMA_NAME = RepositoryResourceLoader.SOLUTION_SCHEMA_NAME; //$NON-NLS-1$
-  public static final String SCHEMA_SEPARATOR = RepositoryResourceLoader.SCHEMA_SEPARATOR; //$NON-NLS-1$
   public static final String DATA_ACCESS_PACKAGE = "pt.webdetails.cda.dataaccess";
   private static final Log logger = LogFactory.getLog(SettingsManager.class);
   private static SettingsManager _instance;
@@ -112,14 +102,7 @@ public class SettingsManager {
       resourceManager.registerDefaults();
       // add the runtime context so that PentahoResourceData class can get access
       // to the solution repo
-      final ResourceKey key;
-      if (CdaEngine.isStandalone()) {
-        File settingsFile = new File(id);
-        key = resourceManager.createKey(settingsFile);
-      } else {
-        final HashMap<String, Object> helperObjects = new HashMap<String, Object>();
-        key = resourceManager.createKey(SOLUTION_SCHEMA_NAME + SCHEMA_SEPARATOR + id, helperObjects);
-      }
+      final ResourceKey key = CdaEngine.getInstance().getEnvironment().createKey(resourceManager, id);
       final Resource resource = resourceManager.create(key, null, org.w3c.dom.Document.class);
       final org.w3c.dom.Document document = (org.w3c.dom.Document) resource.getResource();
       final DOMReader saxReader = new DOMReader();
@@ -143,18 +126,9 @@ public class SettingsManager {
    */
   private Long getLastSaveTime(final String id) {
     //check if it's a saved file and get its timestamp
-    if(CdaEngine.getInstance().isStandalone()) {
-      File cdaFile = new File(id);
-      if(cdaFile.exists()){
-        return cdaFile.lastModified();
-      }
-    }
-    else {
-      ISolutionFile savedCda = RepositoryAccess.getRepository().getSolutionFile(id, FileAccess.NONE);
-      if(savedCda != null) return savedCda.getLastModified();
-    }
-    return null;
+	  return CdaEngine.getInstance().getEnvironment().getCdaFileLastModified(id);
   }
+  
   
   /**
    * (use in synchronized methods)
@@ -202,17 +176,8 @@ public class SettingsManager {
 
     ArrayList<DataAccessConnectionDescriptor> descriptors = new ArrayList<DataAccessConnectionDescriptor>();
     // First we need a list of all the data accesses. We're getting that from a .properties file, as a comma-separated array.
-    final File file = new File(PentahoSystem.getApplicationContext().getSolutionPath("system/cda/resources/components.properties"));
-    final Properties resources = new Properties();
+    final Properties resources = CdaEngine.getInstance().getEnvironment().getCdaComponents();
     
-    FileInputStream fin = null;
-    try{
-      fin = new FileInputStream(file);
-      resources.load(fin);
-    }
-    finally {
-      IOUtils.closeQuietly(fin);
-    }
     String[] dataAccesses = StringUtils.split(StringUtils.defaultString(resources.getProperty("dataAccesses")), ",");
 
     // We apply some sanity checks to the dataAccesses listed:

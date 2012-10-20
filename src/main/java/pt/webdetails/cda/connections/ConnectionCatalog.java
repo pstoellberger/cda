@@ -4,17 +4,19 @@
  */
 package pt.webdetails.cda.connections;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
-import org.pentaho.platform.util.xml.dom4j.XmlDom4JHelper;
-import org.pentaho.platform.engine.core.system.PentahoSystem;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
+
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.connections.ConnectionCatalog.ConnectionType;
-import pt.webdetails.cda.deprecated.CdaContentGenerator;
 
 /**
  *
@@ -37,29 +39,27 @@ public class ConnectionCatalog {
 
   private void getConnections() {
     connectionPool = new HashMap<String, ConnectionInfo>();
-    File dir = new File(PLUGIN_DIR + "/resources/components/connections");
-    FilenameFilter xmlFiles = new FilenameFilter() {
-
-      public boolean accept(File dir, String name) {
-        return !name.startsWith(".") && name.endsWith(".xml");
-      }
-    };
-    String[] files = dir.list(xmlFiles);
-    if (files != null && files.length > 0) {
-      for (String file : files) {
+    List<URL> files = CdaEngine.getInstance().getEnvironment().getComponentsFiles();
+    if (files != null && files.size() > 0) {
+      for (URL file : files) {
         try {
-          Document doc = XmlDom4JHelper.getDocFromFile(dir.getPath() + "/" + file, null);
-          // To figure out whether the component is generic or has a special implementation,
-          // we directly look for the class override in the definition
-          String className = XmlDom4JHelper.getNodeText("/Connection/Implementation", doc);
-          if (className != null) {
-            Connection connection = connectionFromClass(className);
-            if (connection != null) {
-              String connectionType = XmlDom4JHelper.getNodeText("/Connection/Type", doc);
-              ConnectionType ct = ConnectionType.valueOf(connectionType);
-              connectionPool.put(connection.getClass().toString(), new ConnectionInfo(ct, connection.getClass()));
+        	System.out.println("Reading connections file: " + file);
+        	SAXReader reader = new SAXReader();
+            Document document = reader.read(file);
+            // To figure out whether the component is generic or has a special implementation,
+            // we directly look for the class override in the definition
+            
+        	Node node = document.selectSingleNode( "//Connection/Implementation" );
+        	String className = node.getText();
+        	if (className != null) {
+        		Connection connection = connectionFromClass(className);
+        		if (connection != null) {
+        			Node type = document.selectSingleNode( "//Connection/Type" );
+                	String connectionType = type.getText();
+        			ConnectionType ct = ConnectionType.valueOf(connectionType);
+        			connectionPool.put(connection.getClass().toString(), new ConnectionInfo(ct, connection.getClass()));
+        		}
             }
-          }
         } catch (Exception e) {
           logger.error(e);
         }
