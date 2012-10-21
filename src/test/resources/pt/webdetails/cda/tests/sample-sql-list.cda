@@ -11,7 +11,7 @@
     <DataSources>
         <Connection id="1" type="sql.jdbc">
             <Driver>org.hsqldb.jdbcDriver</Driver>
-            <Url>jdbc:hsqldb:mem:SampleData</Url>
+            <Url>jdbc:hsqldb:hsql://localhost:9001/sampledata</Url>
             <User>sa</User>
             <Pass></Pass>
         </Connection>
