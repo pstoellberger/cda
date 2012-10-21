@@ -124,7 +124,7 @@ public abstract class PREDataAccess extends SimpleDataAccess
       dataFactory.initialize(configuration, resourceManager, contextKey,
               new LibLoaderResourceBundleFactory(resourceManager, contextKey, Locale.getDefault(), TimeZone.getDefault()));
 
-      dataFactory.open();
+      
 
       
       PREDataSourceQuery queryExecution = null;
