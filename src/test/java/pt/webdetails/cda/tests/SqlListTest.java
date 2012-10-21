@@ -3,6 +3,7 @@ package pt.webdetails.cda.tests;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
+import java.net.URL;
 import java.nio.charset.Charset;
 
 import org.apache.commons.logging.Log;
@@ -47,7 +48,7 @@ public class SqlListTest extends TestCase {
   }
 
 
-  public void testSqlQuery() throws ExporterException, UnknownDataAccessException, UnsupportedExporterException, QueryException, UnsupportedConnectionException, DocumentException, UnsupportedDataAccessException
+  public void testSqlQuery() throws Exception
   {
 
 
@@ -58,8 +59,8 @@ public class SqlListTest extends TestCase {
     logger.info("Building CDA settings from sample file");
 
     final SettingsManager settingsManager = SettingsManager.getInstance();
-
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-sql-list.cda");
+    URL file = this.getClass().getResource("sample-sql-list.cda");
+    File settingsFile = new File(file.toURI());
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
     logger.debug("Doing query on Cda - Initializing CdaEngine");
     final CdaEngine engine = CdaEngine.getInstance();

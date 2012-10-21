@@ -4,7 +4,7 @@
     <DataSources>
         <Connection id="1" type="mondrian.jndi">
 			<Jndi>SampleData</Jndi>
-			<Catalog>../../../steel-wheels/analysis/steelwheels.mondrian.xml</Catalog>
+			<Catalog>./steelwheels.mondrian.xml</Catalog>
 			<Cube>SteelWheelsSales</Cube>
         </Connection>
     </DataSources>

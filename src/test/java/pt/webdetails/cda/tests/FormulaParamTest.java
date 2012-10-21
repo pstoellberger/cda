@@ -2,6 +2,7 @@ package pt.webdetails.cda.tests;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.net.URL;
 
 import javax.swing.table.TableModel;
 
@@ -46,7 +47,7 @@ public class FormulaParamTest extends TestCase {
     super.setUp();
   }
   
-  public void testParam()throws ExporterException, UnknownDataAccessException, UnsupportedExporterException, QueryException, UnsupportedConnectionException, DocumentException, UnsupportedDataAccessException
+  public void testParam()throws Exception
   {
     // Define an outputStream
   
@@ -55,9 +56,8 @@ public class FormulaParamTest extends TestCase {
     logger.info("Building CDA settings from sample file");
 
     final SettingsManager settingsManager = SettingsManager.getInstance();
-
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-securityParam.cda");
-    
+    URL file = this.getClass().getResource("sample-securityParam.cda");
+    File settingsFile = new File(file.toURI());
     Assert.assertTrue(settingsFile.exists());
     
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());

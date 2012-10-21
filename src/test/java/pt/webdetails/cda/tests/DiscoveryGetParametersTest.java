@@ -2,6 +2,7 @@ package pt.webdetails.cda.tests;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.net.URL;
 
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
@@ -50,7 +51,7 @@ public class DiscoveryGetParametersTest extends TestCase
   }
 
 
-  public void testGetParameters() throws ExporterException, UnknownDataAccessException, UnsupportedExporterException, QueryException, UnsupportedConnectionException, DocumentException, UnsupportedDataAccessException
+  public void testGetParameters() throws Exception
   {
 
 
@@ -60,8 +61,8 @@ public class DiscoveryGetParametersTest extends TestCase
     logger.info("Building CDA settings from sample file");
 
     final SettingsManager settingsManager = SettingsManager.getInstance();
-
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-discovery.cda");
+    URL file = this.getClass().getResource("sample-discovery.cda");
+    File settingsFile = new File(file.toURI());
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
     logger.debug("Doing discovery on the file");
     final CdaEngine engine = CdaEngine.getInstance();

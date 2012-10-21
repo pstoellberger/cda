@@ -2,6 +2,7 @@ package pt.webdetails.cda.tests;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.net.URL;
 
 
 import org.apache.commons.logging.Log;
@@ -46,8 +47,8 @@ public class IterableParameterSqlTest extends TestCase {
     logger.info("Building CDA settings from sample file");
 
     final SettingsManager settingsManager = SettingsManager.getInstance();
-
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-iterable-sql.cda");
+    URL file = this.getClass().getResource("sample-iterable-sql.cda");
+    File settingsFile = new File(file.toURI());
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
     logger.debug("Doing query on Cda - Initializing CdaEngine");
     final CdaEngine engine = CdaEngine.getInstance();

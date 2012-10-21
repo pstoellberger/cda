@@ -2,6 +2,7 @@ package pt.webdetails.cda.tests;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Calendar;
 
 import junit.framework.TestCase;
@@ -46,7 +47,7 @@ public class SqlTestFormula extends TestCase {
   }
 
 
-  public void testFormulaCacheSql() throws ExporterException, UnknownDataAccessException, UnsupportedExporterException, QueryException, UnsupportedConnectionException, DocumentException, UnsupportedDataAccessException
+  public void testFormulaCacheSql() throws Exception
   {
     // Define an outputStream
     OutputStream out = System.out;
@@ -54,8 +55,8 @@ public class SqlTestFormula extends TestCase {
     logger.info("Building CDA settings from sample file");
 
     final SettingsManager settingsManager = SettingsManager.getInstance();
-
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-sql-formula.cda");
+    URL file = this.getClass().getResource("sample-sql-formula.cda");
+    File settingsFile = new File(file.toURI());
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
     logger.debug("Doing query on Cda - Initializing CdaEngine");
     final CdaEngine engine = CdaEngine.getInstance();

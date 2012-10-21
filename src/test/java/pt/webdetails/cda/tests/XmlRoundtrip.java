@@ -1,6 +1,7 @@
 package pt.webdetails.cda.tests;
 
 import java.io.File;
+import java.net.URL;
 
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.ElementNameAndAttributeQualifier;
@@ -28,7 +29,8 @@ public class XmlRoundtrip extends XMLTestCase {
     }
 	
 	public String readCdaFile(String file) throws Exception {
-	    final File settingsFile = new File(file);
+		URL settingsURL = this.getClass().getResource(file);
+	    File settingsFile = new File(settingsURL.toURI());
 	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
 	    return cdaSettings.asXML();
 	}
@@ -67,78 +69,78 @@ public class XmlRoundtrip extends XMLTestCase {
     }
 
     public void testDiscovery() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-discovery.cda");
+    	equalityCheck("sample-discovery.cda");
     }
     
     public void testJoin() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-join.cda");
+    	equalityCheck("sample-join.cda");
     }
 
     public void testIterable() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-iterable-sql.cda");
+    	equalityCheck("sample-iterable-sql.cda");
     }
 
     public void testKettle() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-kettle.cda");
+    	equalityCheck("sample-kettle.cda");
     }
 
     public void testMdxStringArray() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-mdx-stringArray.cda");
+    	equalityCheck("sample-mdx-stringArray.cda");
     }
     
     public void testMondrianCompact() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-mondrian-compact.cda");
+    	equalityCheck("sample-mondrian-compact.cda");
     }    
 
     public void testMetadata() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-metadata.cda");
+    	equalityCheck("sample-metadata.cda");
     }  
     
     public void testMondrianJndi() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-mondrian-jndi.cda");
+    	equalityCheck("sample-mondrian-jndi.cda");
     }    
     
     public void testMondrian() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-mondrian.cda");
+    	equalityCheck("sample-mondrian.cda");
     }    
     
     public void testOlap4j() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-olap4j.cda");
+    	equalityCheck("sample-olap4j.cda");
     }     
     
     public void testOutput() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-output.cda");
+    	equalityCheck("sample-output.cda");
     }        
 
     public void testReflection() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-reflection.cda");
+    	equalityCheck("sample-reflection.cda");
     }        
 
     public void testScripting() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-scripting.cda");
+    	equalityCheck("sample-scripting.cda");
     }        
 
     public void testSecurityParam() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-securityParam.cda");
+    	equalityCheck("sample-securityParam.cda");
     }    
 
     public void testSqlFormula() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-sql-formula.cda");
+    	equalityCheck("sample-sql-formula.cda");
     }
     
     public void testSqlList() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-sql-list.cda");
+    	equalityCheck("sample-sql-list.cda");
     }
     
     public void testSql() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-sql.cda");
+    	equalityCheck("sample-sql.cda");
     }
 
     public void testUnion() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-union.cda");
+    	equalityCheck("sample-union.cda");
     }
     
     public void testXpath() throws Exception{
-    	equalityCheck("test/pt/webdetails/cda/tests/sample-xpath.cda");
+    	equalityCheck("sample-xpath.cda");
     }
 }
