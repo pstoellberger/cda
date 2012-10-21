@@ -5,20 +5,18 @@ import java.io.OutputStream;
 import java.net.URL;
 
 import junit.framework.TestCase;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.dom4j.DocumentException;
+
 import pt.webdetails.cda.CdaBoot;
 import pt.webdetails.cda.CdaEngine;
-import pt.webdetails.cda.connections.UnsupportedConnectionException;
-import pt.webdetails.cda.dataaccess.QueryException;
-import pt.webdetails.cda.dataaccess.UnsupportedDataAccessException;
-import pt.webdetails.cda.exporter.ExporterException;
-import pt.webdetails.cda.exporter.UnsupportedExporterException;
+import pt.webdetails.cda.cache.IQueryCache;
+import pt.webdetails.cda.cache.TableCacheKey;
+import pt.webdetails.cda.dataaccess.Olap4JDataAccess;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
-import pt.webdetails.cda.settings.UnknownDataAccessException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -72,7 +70,22 @@ public class Olap4jTest extends TestCase
 
     logger.info("Doing query");
     engine.doQuery(out, cdaSettings, queryOptions);
-
+    logger.info("\nChecking cache");
+    boolean hasCash = false;
+    
+    String query = ((Olap4JDataAccess) cdaSettings.getDataAccess("2")).getQuery();
+    IQueryCache cache = CdaEngine.getInstance().getEnvironment().getQueryCache();
+    logger.info("Cache cleared!");
+    cache.clearCache();
+    engine.doQuery(out, cdaSettings, queryOptions);
+    engine.doQuery(out, cdaSettings, queryOptions);
+    for (TableCacheKey key : cache.getKeys()) {
+	   assertEquals(key.getQuery(), query);
+	   logger.info("Found query in cache! Query:" + query);
+	   hasCash = true;
+    }
+    assertTrue(hasCash);
+    logger.info("Found Query in Cache!");
 
   }
 }
