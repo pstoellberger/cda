@@ -2,6 +2,7 @@ package pt.webdetails.cda.tests;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -50,7 +51,7 @@ public class SortTest extends TestCase
     super.setUp();
   }
 
-  public void testSqlQuery() throws ExporterException, UnknownDataAccessException, UnsupportedExporterException, QueryException, UnsupportedConnectionException, DocumentException, UnsupportedDataAccessException
+  public void testSqlQuery() throws Exception
   {
 
 
@@ -60,8 +61,8 @@ public class SortTest extends TestCase
     logger.info("Building CDA settings from sample file");
 
     final SettingsManager settingsManager = SettingsManager.getInstance();
-
-    final File settingsFile = new File("test/pt/webdetails/cda/tests/sample-mondrian-compact.cda");
+    URL file = this.getClass().getResource("sample-mondrian-compact.cda");
+    File settingsFile = new File(file.toURI());
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
     logger.debug("Doing query on Cda - Initializing CdaEngine");
     final CdaEngine engine = CdaEngine.getInstance();
