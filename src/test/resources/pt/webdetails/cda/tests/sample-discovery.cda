@@ -11,7 +11,7 @@
     <DataSources>
         <Connection id="1" type="sql.jdbc">
             <Driver>org.hsqldb.jdbcDriver</Driver>
-            <Url>jdbc:hsqldb:hsql://localhost:9001/sampledata</Url>
+            <Url>jdbc:hsqldb:res:sampledata</Url>
             <User>pentaho_user</User>
             <Pass>password</Pass>
         </Connection>
