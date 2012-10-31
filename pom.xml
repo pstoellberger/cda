@@ -353,9 +353,7 @@
 		<dependency>
     		<groupId>pentaho-kettle</groupId>
     		<artifactId>robochef</artifactId>
-    		<version>0.9.6</version>
-    		<systemPath>${project.basedir}/dev-lib/robochef-0.9.6.jar</systemPath>
-    		<scope>system</scope>
+    		<version>0.9.7</version>
 		</dependency>
 		
 		<!--  test dependencies -->
