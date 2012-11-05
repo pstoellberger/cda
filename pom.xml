@@ -48,6 +48,13 @@
 			</snapshots>
 		</repository>
 
+		<repository>
+			<id>analytical-labs</id>
+			<url>http://repo.analytical-labs.com/alabs-release-local</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 	<build>
 		<plugins>
@@ -129,6 +136,11 @@
 			<version>1.4</version>
 		</dependency>
 		
+        <dependency>
+            <groupId>jexcelapi</groupId>
+            <artifactId>jxl</artifactId>
+            <version>2.4.3</version>
+        </dependency>
 
 		<!-- mondrian + olap4j + kettle + metadata -->
 		<dependency>
@@ -148,6 +160,14 @@
 					<groupId>xml-apis</groupId>
 					<artifactId>xml-apis</artifactId>
 				</exclusion>
+				
+			
+				    <exclusion>
+					<groupId>xerces</groupId>
+					<artifactId>xercesImpl</artifactId>
+				</exclusion>								
+
+				
 				
 			</exclusions>
 		</dependency>
