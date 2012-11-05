@@ -5,7 +5,6 @@
 package pt.webdetails.cda;
 
 import java.io.OutputStream;
-
 import javax.swing.table.TableModel;
 
 import org.apache.commons.logging.Log;
