@@ -13,12 +13,12 @@ public class QueryTooLongEvent extends CdaEvent { //implements JsonSerializable 
 ////    public static final String DURATION = "duration";
 ////  }
 //  
-//  private long duration;
-//
-//  public QueryTooLongEvent(QueryInfo queryInfo, long duration) throws JSONException{
-//    super(CdaEventType.QueryTooLong, queryInfo);
-//    this.duration = duration;
-//  }
+  private long duration;
+
+  public QueryTooLongEvent(QueryInfo queryInfo, long duration) throws JSONException{
+    super(CdaEventType.QueryTooLong, queryInfo);
+    this.duration = duration;
+  }
 //  
 //  @Override
 //  public JSONObject toJSON() throws JSONException {

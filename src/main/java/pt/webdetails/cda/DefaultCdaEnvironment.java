@@ -41,6 +41,8 @@ import pt.webdetails.cda.connections.mondrian.MondrianConnectionInfo;
 import pt.webdetails.cda.connections.mondrian.MondrianJndiConnectionInfo;
 import pt.webdetails.cda.connections.sql.SqlJndiConnectionInfo;
 import pt.webdetails.cda.discovery.DiscoveryOptions;
+import pt.webdetails.cda.events.CdaEvent;
+import pt.webdetails.cda.events.IEventPublisher;
 import pt.webdetails.cda.exporter.ExporterEngine;
 
 public class DefaultCdaEnvironment implements ICdaEnvironment {
@@ -338,4 +340,15 @@ public class DefaultCdaEnvironment implements ICdaEnvironment {
 	  }
 
 
+    public IEventPublisher getEventPublisher() {
+      return null;
+      
+      //PENTAHO
+//      return new IEventPublisher() {
+//        @Override
+//        public void publishEvent(CdaEvent event) {
+//          EventPublisher.getPublisher.publish(event);
+//        }      
+//      };
+    }
 }
