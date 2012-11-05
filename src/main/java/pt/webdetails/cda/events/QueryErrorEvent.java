@@ -9,13 +9,13 @@ import org.json.JSONObject;
 
 public class QueryErrorEvent extends CdaEvent {
   
-//  private Throwable e;
-//
-//  public QueryErrorEvent(QueryInfo queryInfo, Throwable e) throws JSONException {
-//    super(CdaEventType.QueryError, queryInfo);
-//    this.e = e;
-//  }
-//  
+  private Throwable e;
+
+  public QueryErrorEvent(QueryInfo queryInfo, Throwable e) throws JSONException {
+    super(CdaEventType.QueryError, queryInfo);
+    this.e = e;
+  }
+  
 //  @Override
 //  public JSONObject toJSON() throws JSONException {
 //    JSONObject obj = super.toJSON();
