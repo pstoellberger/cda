@@ -22,6 +22,7 @@ import pt.webdetails.cda.connections.kettle.TransFromFileConnectionInfo;
 import pt.webdetails.cda.connections.mondrian.MondrianConnectionInfo;
 import pt.webdetails.cda.connections.mondrian.MondrianJndiConnectionInfo;
 import pt.webdetails.cda.connections.sql.SqlJndiConnectionInfo;
+import pt.webdetails.cda.events.IEventPublisher;
 
 public interface ICdaEnvironment {
 
@@ -61,5 +62,8 @@ public interface ICdaEnvironment {
 	public String getPath(String templateName);
 
 	public List<URL> getComponentsFiles();
+  
+  
+  public IEventPublisher getEventPublisher();
 
 }

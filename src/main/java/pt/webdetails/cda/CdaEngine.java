@@ -5,12 +5,10 @@
 package pt.webdetails.cda;
 
 import java.io.OutputStream;
-<<<<<<< HEAD:src/main/java/pt/webdetails/cda/CdaEngine.java
-=======
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
->>>>>>> 687890e0d88d29c401da2763b897fbd7b04b78d0:src/pt/webdetails/cda/CdaEngine.java
+
 
 import javax.swing.table.TableModel;
 

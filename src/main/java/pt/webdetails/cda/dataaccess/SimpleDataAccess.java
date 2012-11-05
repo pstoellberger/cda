@@ -17,12 +17,16 @@ import org.dom4j.Element;
 import org.pentaho.reporting.engine.classic.core.ParameterDataRow;
 
 import pt.webdetails.cda.CdaBoot;
+import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.cache.TableCacheKey;
 import pt.webdetails.cda.cache.monitor.ExtraCacheInfo;
 import pt.webdetails.cda.connections.Connection;
 import pt.webdetails.cda.connections.ConnectionCatalog;
 import pt.webdetails.cda.connections.DummyConnection;
 import pt.webdetails.cda.events.CdaEvent;
+import pt.webdetails.cda.events.IEventPublisher;
+import pt.webdetails.cda.events.QueryErrorEvent;
+import pt.webdetails.cda.events.QueryTooLongEvent;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.UnknownConnectionException;
 import pt.webdetails.cda.utils.TableModelUtils;
@@ -130,15 +134,19 @@ public abstract class SimpleDataAccess extends AbstractDataAccess implements Dom
 
       try
       {
-//        CdaEvent.QueryInfo info = new CdaEvent.QueryInfo(getCdaSettings().getId(), getId(), getQuery(), parameterDataRow);
+        IEventPublisher evPublisher = CdaEngine.getInstance().getEnvironment().getEventPublisher();
+        if (evPublisher != null) {
+          CdaEvent.QueryInfo info = new CdaEvent.QueryInfo(getCdaSettings().getId(), 
+                  getId(), getQuery(), parameterDataRow);          
+          if (e instanceof QueryException && e.getCause() != null)
+          {
+            CdaEngine.getInstance().getEnvironment().getEventPublisher().publishEvent(new QueryErrorEvent(info, e.getCause()));
 
-        if (e instanceof QueryException && e.getCause() != null)
-        {
-//          EventPublisher.getPublisher().publish(new QueryErrorEvent(info, e.getCause()));
-        }
-        else
-        {
-//          EventPublisher.getPublisher().publish(new QueryErrorEvent(info, e));
+          }
+          else
+          {
+            CdaEngine.getInstance().getEnvironment().getEventPublisher().publishEvent(new QueryErrorEvent(info, e));
+          }
         }
       }
       catch (Exception inner)
@@ -241,10 +249,15 @@ public abstract class SimpleDataAccess extends AbstractDataAccess implements Dom
     if (duration > queryTimeThreshold)
     {
       //publish
+      IEventPublisher evPublisher = CdaEngine.getInstance().getEnvironment().getEventPublisher();
       try
       {
-//        EventPublisher.getPublisher().publish(new QueryTooLongEvent(
-//                new QueryTooLongEvent.QueryInfo(this.getCdaSettings().getId(), queryId, query, Parameter.createParameterDataRowFromParameters(parameters)), duration));
+        if (evPublisher != null)
+          evPublisher.publishEvent(new QueryTooLongEvent(
+                  new QueryTooLongEvent.QueryInfo(this.getCdaSettings().getId(), 
+                          queryId, query, 
+                          Parameter.createParameterDataRowFromParameters(parameters)), 
+                  duration));
       }
       catch (Exception e)
       {
