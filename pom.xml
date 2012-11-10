@@ -10,9 +10,9 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<slf4j.version>1.6.1</slf4j.version>
-		<pentaho.reporting.version>3.9.0-GA</pentaho.reporting.version>
-		<lib.version>1.2.5</lib.version>
-		<libbase.version>1.2.4</libbase.version>
+		<pentaho.reporting.version>TRUNK-SNAPSHOT</pentaho.reporting.version>
+		<lib.version>TRUNK-SNAPSHOT</lib.version>
+		<libbase.version>TRUNK-SNAPSHOT</libbase.version>
 		<pentaho.connections>2.2.3</pentaho.connections>
 		<mondrian.version>3.4.15</mondrian.version>
 		<kettle.version>4.3.0-stable</kettle.version>
