@@ -5,7 +5,7 @@
 	<artifactId>cda-core</artifactId>
 	<packaging>jar</packaging>
 	<name>CDA core</name>
-	<version>PRD-TRUNK-SNAPSHOT</version>
+	<version>TRUNK-SNAPSHOT-SAIKU</version>
 	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
